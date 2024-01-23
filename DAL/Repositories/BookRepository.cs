@@ -37,11 +37,11 @@ namespace DAL.Repositories
                 _context.SaveChanges();
                 return book; 
             }
-            catch(Exception ex)
-            {
-                _logger.LogError(ex,"Error occurred while adding a book to the database.");
-                throw;
-            }
+            // catch(Exception ex)
+            // {
+            //     _logger.LogError(ex,"Error occurred while adding a book to the database.");
+            //     throw;
+            // }
         }
 
         public Book Borrow(Book book, ApplicationUser borrower)
