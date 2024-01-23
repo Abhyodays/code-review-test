@@ -37,11 +37,11 @@ namespace DAL.Repositories
                 _context.SaveChanges();
                 return book; 
             }
-            // catch(Exception ex)
-            // {
-            //     _logger.LogError(ex,"Error occurred while adding a book to the database.");
-            //     throw;
-            // }
+            catch(Exception ex)
+            {
+                _logger.LogError(ex,"Error occurred while adding a book to the database.");
+                throw;
+            }
         }
 
         public Book Borrow(Book book, ApplicationUser borrower)
@@ -65,10 +65,10 @@ namespace DAL.Repositories
 
         public Book GetById(int id)
         {
-            try
-            {
-                return _context.Books.Include(book => book.LentByUser).Include(book => book.BorrowedByUser).FirstOrDefault(b => b.Id == id);
-            }
+            // try
+            // {
+            //     return _context.Books.Include(book => book.LentByUser).Include(book => book.BorrowedByUser).FirstOrDefault(b => b.Id == id);
+            // }
             catch(Exception ex)
             {
                 _logger.LogError(ex, "Error occurred while finding a book in the database.");
