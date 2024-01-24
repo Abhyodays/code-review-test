@@ -65,15 +65,15 @@ namespace DAL.Repositories
 
         public Book GetById(int id)
         {
-            // try
-            // {
-            //     return _context.Books.Include(book => book.LentByUser).Include(book => book.BorrowedByUser).FirstOrDefault(b => b.Id == id);
-            // }
-            catch(Exception ex)
+            try
             {
-                _logger.LogError(ex, "Error occurred while finding a book in the database.");
-                throw;
+                return _context.Books.Include(book => book.LentByUser).Include(book => book.BorrowedByUser).FirstOrDefault(b => b.Id == id);
             }
+            // catch(Exception ex)
+            // {
+            //     _logger.LogError(ex, "Error occurred while finding a book in the database.");
+            //     throw;
+            // }
         }
 
         public Book ReturnBook(int bookId)
