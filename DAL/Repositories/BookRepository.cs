@@ -16,7 +16,7 @@ namespace DAL.Repositories
         private AppDbContext _context;
         private ILogger<BookRepository> _logger;
         private UserManager<ApplicationUser> _userManager;
-        public BookRepository(AppDbContext context, ILogger<BookRepository> logger, UserManager<ApplicationUser>userManager)
+        public BookRepository(AppDbContext context, ILogger<BookRepository> logger, UserManager<ApplicationUser> userManager)
         {
             _context = context;
             _logger = logger;
@@ -35,18 +35,18 @@ namespace DAL.Repositories
                 if (existingBook != null) throw new Exception("Book with same name and author already exist.");
                 _context.Books.Add(book);
                 _context.SaveChanges();
-                return book; 
+                return book;
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
-                _logger.LogError(ex,"Error occurred while adding a book to the database.");
+                _logger.LogError(ex, "Error occurred while adding a book to the database.");
                 throw;
             }
         }
 
         public Book Borrow(Book book, ApplicationUser borrower)
         {
-            try 
+            try
             {
                 book.BorrowedByUserId = borrower.Id;
                 book.LentByUser.Tokens++;
@@ -54,9 +54,9 @@ namespace DAL.Repositories
                 borrower.Tokens--;
                 _context.SaveChanges();
                 return book;
-                
+
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 _logger.LogError(ex, "Error occurred while borrowing book.");
                 throw;
@@ -81,7 +81,7 @@ namespace DAL.Repositories
             try
             {
                 var book = _context.Books.Include(book => book.LentByUser).Include(book => book.BorrowedByUser).FirstOrDefault(b => b.Id == bookId);
-                if(book == null)
+                if (book == null)
                 {
                     throw new Exception("Book with given Id not exist.");
                 }
@@ -90,7 +90,7 @@ namespace DAL.Repositories
                 _context.SaveChanges();
                 return book;
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 _logger.LogError(ex, "Error occured while returning book.");
                 throw;
@@ -104,7 +104,7 @@ namespace DAL.Repositories
 
         public List<Book> GetAllBorrowed(string userEmail)
         {
-            return _context.Books.Include(book => book.LentByUser).Include(book => book.BorrowedByUser).Where(b => b.BorrowedByUser.Email == userEmail).ToList();
+            return _context.Books.Include(book => book.LentByUser).Include(book => book.BorrowedByUser).Where(b => b.BorrowedByUser.Email == userEmail).ToList()
         }
     }
 }
