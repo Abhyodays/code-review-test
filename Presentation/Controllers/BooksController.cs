@@ -54,9 +54,9 @@ namespace Presentation.Controllers
             {
                 var addedBook = await _bookServices.Add(book);
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
-                return BadRequest(new { Message = ex.Message});
+                return BadRequest(new { Message = ex.Message });
             }
             return Ok(book);
         }
@@ -75,7 +75,7 @@ namespace Presentation.Controllers
         [Authorize]
         public async Task<ActionResult<BookDto>> Borrow(int bookId, string userId)
         {
-            if(bookId<0 || userId == null)
+            if (bookId < 0 || userId == null)
             {
                 return BadRequest();
             }
@@ -88,7 +88,7 @@ namespace Presentation.Controllers
                 }
                 return Ok(book);
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 return BadRequest(new { Message = ex.Message });
             }
@@ -102,7 +102,7 @@ namespace Presentation.Controllers
                 var book = _bookServices.ReturnBook(bookId);
                 return book;
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 return BadRequest(new { Message = ex.Message });
             }
@@ -110,4 +110,5 @@ namespace Presentation.Controllers
 
 
     }
+}
 
