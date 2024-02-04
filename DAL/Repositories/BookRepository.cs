@@ -78,23 +78,23 @@ namespace DAL.Repositories
 
         public Book ReturnBook(int bookId)
         {
-            // try
-            // {
-            //     var book = _context.Books.Include(book => book.LentByUser).Include(book => book.BorrowedByUser).FirstOrDefault(b => b.Id == bookId);
-            //     if (book == null)
-            //     {
-            //         throw new Exception("Book with given Id not exist.");
-            //     }
-            //     book.IsAvailable = true;
-            //     book.BorrowedByUserId = null;
-            //     _context.SaveChanges();
-            //     return book;
-            // }
+            try
+            {
+                var book = _context.Books.Include(book => book.LentByUser).Include(book => book.BorrowedByUser).FirstOrDefault(b => b.Id == bookId);
+                if (book == null)
+                {
+                    throw new Exception("Book with given Id not exist.");
+                }
+                book.IsAvailable = true;
+                book.BorrowedByUserId = null;
+                _context.SaveChanges();
+                return book;
+            }
             catch (Exception ex)
             {
                 _logger.LogError(ex, "Error occured while returning book.");
                 throw;
-            }
+            
         }
 
         public List<Book> GetAllLented(string userEmail)
