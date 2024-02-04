@@ -69,27 +69,27 @@ namespace DAL.Repositories
             {
                 return _context.Books.Include(book => book.LentByUser).Include(book => book.BorrowedByUser).FirstOrDefault(b => b.Id == id);
             }
-            // catch(Exception ex)
-            // {
-            //     _logger.LogError(ex, "Error occurred while finding a book in the database.");
-            //     throw;
-            // }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error occurred while finding a book in the database.");
+                throw;
+            }
         }
 
         public Book ReturnBook(int bookId)
         {
-            try
-            {
-                var book = _context.Books.Include(book => book.LentByUser).Include(book => book.BorrowedByUser).FirstOrDefault(b => b.Id == bookId);
-                if (book == null)
-                {
-                    throw new Exception("Book with given Id not exist.");
-                }
-                book.IsAvailable = true;
-                book.BorrowedByUserId = null;
-                _context.SaveChanges();
-                return book;
-            }
+            // try
+            // {
+            //     var book = _context.Books.Include(book => book.LentByUser).Include(book => book.BorrowedByUser).FirstOrDefault(b => b.Id == bookId);
+            //     if (book == null)
+            //     {
+            //         throw new Exception("Book with given Id not exist.");
+            //     }
+            //     book.IsAvailable = true;
+            //     book.BorrowedByUserId = null;
+            //     _context.SaveChanges();
+            //     return book;
+            // }
             catch (Exception ex)
             {
                 _logger.LogError(ex, "Error occured while returning book.");
@@ -99,7 +99,7 @@ namespace DAL.Repositories
 
         public List<Book> GetAllLented(string userEmail)
         {
-            return _context.Books.Include(book => book.LentByUser).Include(book => book.BorrowedByUser).Where(b => b.LentByUser.Email == userEmail).ToList()
+            return _context.Books.Include(book => book.LentByUser).Include(book => book.BorrowedByUser).Where(b => b.LentByUser.Email == userEmail).ToList();
         }
 
         public List<Book> GetAllBorrowed(string userEmail)
