@@ -106,5 +106,5 @@ namespace DAL.Repositories
         {
             return _context.Books.Include(book => book.LentByUser).Include(book => book.BorrowedByUser).Where(b => b.BorrowedByUser.Email == userEmail).ToList();
         }
-//     }
-// }
+    }
+}
