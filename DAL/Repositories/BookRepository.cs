@@ -88,13 +88,13 @@ namespace DAL.Repositories
                 book.IsAvailable = true;
                 book.BorrowedByUserId = null;
                 _context.SaveChanges();
-                // return book;
+                return book
             }
-            catch (Exception ex)
-            {
-                _logger.LogError(ex, "Error occured while returning book.");
-                throw;
-            }
+            // catch (Exception ex)
+            // {
+            //     _logger.LogError(ex, "Error occured while returning book.");
+            //     throw;
+            // }
         }
 
         public List<Book> GetAllLented(string userEmail)
