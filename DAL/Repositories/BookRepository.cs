@@ -93,7 +93,7 @@ namespace DAL.Repositories
             catch (Exception ex)
             {
                 _logger.LogError(ex, "Error occured while returning book.");
-                throw
+                throw;
             }
         }
 
