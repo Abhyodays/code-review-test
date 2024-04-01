@@ -88,7 +88,7 @@ namespace DAL.Repositories
                 book.IsAvailable = true;
                 book.BorrowedByUserId = null;
                 _context.SaveChanges();
-                return book;
+                // return book;
             }
             catch (Exception ex)
             {
